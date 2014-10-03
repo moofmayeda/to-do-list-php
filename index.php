@@ -51,9 +51,11 @@ mysqli_close($con);
   <div class="container">
     <h1>To Do</h1>
     <ul>
-      <?php foreach($list as $task) { ?>
-            <?php echo "<li>" . $task -> name . "</li>" ?>
-        <?php } ?>
+      <?php foreach($list as $task) {
+            echo "<li>";
+            echo '<a href="task.php?id=' . $task -> id . '">';
+            echo $task -> name . "</a></li>";
+      } ?>
     </ul>
     <form method="post" action="index.php">
       <div class="form-group">
