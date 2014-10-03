@@ -1,7 +1,17 @@
 <?php
 
 $list = Array();
+class Task {
+  public $id;
+  public $name;
+  public $description;
 
+  public function __construct($id, $name, $description) {
+    $this -> id = $id;
+    $this -> name = $name;
+    $this -> description = $description;
+  }
+}
 DEFINE('DB_USERNAME', 'root');
 DEFINE('DB_PASSWORD', 'root');
 DEFINE('DB_HOST', 'localhost');
@@ -24,7 +34,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 $result = mysqli_query($con,"SELECT * FROM tasks");
 
 while($row = mysqli_fetch_array($result)) {
-  array_push($list, $row['name']);
+  $task = new Task($row['id'], $row['name'], $row['description']);
+  array_push($list, $task);
 }
 mysqli_close($con);
 
@@ -41,7 +52,7 @@ mysqli_close($con);
     <h1>To Do</h1>
     <ul>
       <?php foreach($list as $task) { ?>
-            <?php echo "<li>" . $task . "</li>" ?>
+            <?php echo "<li>" . $task -> name . "</li>" ?>
         <?php } ?>
     </ul>
     <form method="post" action="index.php">
